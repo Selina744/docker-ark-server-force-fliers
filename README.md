@@ -44,7 +44,7 @@ The basic configuration of your server is done by using environment variables wh
 | RCON_PORT | 27020 | Exposed RCON port |
 | SERVER_LIST_PORT | 27015 | Exposed server-list port |
 | GAME_MOD_IDS | `empty` |  Additional game-mods you want to install, seperated by comma. (e.g. GAME_MOD_IDS=487516323,487516324,487516325) |
-
+| ALLOW_CAVE_FLYERS | false | Allows flyers in caves |
 #### Get things runnning
 
 ##### `docker-run`
@@ -79,6 +79,7 @@ services:
       - BACKUP_ON_STOP=${BACKUP_ON_STOP}
       - PRE_UPDATE_BACKUP=${PRE_UPDATE_BACKUP}
       - WARN_ON_STOP=${WARN_ON_STOP}
+      - ALLOW_CAVE_FLYERS=${ALLOW_CAVE_FLYERS}
     ports:
       # Port for connections from ARK game client
       - "7777:7777/udp"

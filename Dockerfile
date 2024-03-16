@@ -11,6 +11,7 @@ ENV         IMAGE_VERSION="${IMAGE_VERSION}" \
             SERVER_PASSWORD="YouShallNotPass" \
             ADMIN_PASSWORD="Th155houldD3f1n3tlyB3Chang3d" \
             MAX_PLAYERS="20" \
+            ALLOW_CAVE_FLYERS="false" \
             GAME_MOD_IDS="" \
             UPDATE_ON_START="false" \
             BACKUP_ON_STOP="false" \
