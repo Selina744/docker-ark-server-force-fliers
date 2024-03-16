@@ -1,7 +1,4 @@
-![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline-status/hermsi1337/docker-ark-server?branch=master&style=flat-square)
-[![Docker Pulls](https://img.shields.io/docker/pulls/hermsi/ark-server?label=hub.docker.com%20pulls&style=flat-square)](https://hub.docker.com/r/hermsi/ark-server)
-[![Docker Repository on Quay](https://img.shields.io/badge/Quay.io-Repository-blue)](https://quay.io/repository/hermsi1337/ark-server)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T85UYT37P3YNJ&source=url)
+![Forked from hermsi1337](https://github.com/Hermsi1337/docker-ark-server)
 
 # Dockerize ARK managed with [ARK-Server-Tools](https://github.com/arkmanager/ark-server-tools)
 
@@ -44,7 +41,7 @@ The basic configuration of your server is done by using environment variables wh
 | RCON_PORT | 27020 | Exposed RCON port |
 | SERVER_LIST_PORT | 27015 | Exposed server-list port |
 | GAME_MOD_IDS | `empty` |  Additional game-mods you want to install, seperated by comma. (e.g. GAME_MOD_IDS=487516323,487516324,487516325) |
-
+| ALLOW_CAVE_FLYERS | false | Allows flyers in caves |
 #### Get things runnning
 
 ##### `docker-run`
@@ -52,7 +49,7 @@ The basic configuration of your server is done by using environment variables wh
 I personally prefer `docker-compose` but for those of you, who want to run their own ARK-server without any "zip and zap", here you go:
 ```bash
 # You may want to change SESSION_NAME, ADMIN_PASSWORD or host-volume
-$ docker run -d --name="ark_server" --restart=always -v "${HOME}/ark-server:/app" -e SESSION_NAME="Awesome ARK is awesome" -e ADMIN_PASSWORD="FooB4r" hermsi/ark-server:latest
+$ docker run -d --name="ark_server" --restart=always -v "${HOME}/ark-server:/app" -e SESSION_NAME="Awesome ARK is awesome" -e ADMIN_PASSWORD="FooB4r" selina744/ark-server:latest
 ```
 
 ##### `docker-compose`
@@ -65,7 +62,7 @@ services:
   server:
     restart: always
     container_name: ark_server
-    image: hermsi/ark-server:latest
+    image: selina744/ark-server:latest
     volumes:
       - ${HOME}/ark-server:/app
       - ${HOME}/ark-server-backups:/home/steam/ARK-Backups
@@ -79,6 +76,7 @@ services:
       - BACKUP_ON_STOP=${BACKUP_ON_STOP}
       - PRE_UPDATE_BACKUP=${PRE_UPDATE_BACKUP}
       - WARN_ON_STOP=${WARN_ON_STOP}
+      - ALLOW_CAVE_FLYERS=${ALLOW_CAVE_FLYERS}
     ports:
       # Port for connections from ARK game client
       - "7777:7777/udp"
@@ -151,7 +149,7 @@ To do so, you first need to login with steamcmd in order to create a valid sessi
 ```shell
 $ root@myVPS:/var/storage/ark-server# mkdir Steam
 $ root@myVPS:/var/storage/ark-server# chown 1000.1000 Steam
-$ root@myVPS:/var/storage/ark-server# docker run --rm --entrypoint /home/steam/steamcmd/steamcmd.sh -it -u steam -v $(pwd)/Steam:/home/steam/Steam hermsi/ark-server '+login YOUR_STEAM_USERNAME "YOUR_STEAM_PASSWORD"'
+$ root@myVPS:/var/storage/ark-server# docker run --rm --entrypoint /home/steam/steamcmd/steamcmd.sh -it -u steam -v $(pwd)/Steam:/home/steam/Steam selina744/ark-server '+login YOUR_STEAM_USERNAME "YOUR_STEAM_PASSWORD"'
 Redirecting stderr to '/home/steam/Steam/logs/stderr.txt'
 [  0%] Checking for available updates...
 [----] Verifying installation...
